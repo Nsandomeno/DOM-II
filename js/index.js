@@ -80,3 +80,51 @@ window.addEventListener("resize", function(){
     thirdImg.style.display = "none";
 })
 
+
+// nesting example - stop propagation
+let dest = document.querySelector("footer") // maybe "footer p"
+
+let hw = document.createElement("div")
+let hw_2 = document.createElement("div") // second div to be nested  
+
+let textNode1 = document.createTextNode("ONE ONE ONE ") // create txt nodes for each child of the footer 
+let textNode2 = document.createTextNode("Two TWO TWO")
+
+dest.prepend(hw) // nest hw div in footer
+
+hw.appendChild(hw_2) // nest hw_2 div in hw div
+hw.appendChild(textNode1) // put text in the hw div
+
+hw_2.appendChild(textNode2) // put text in the hw 2 div
+
+
+// give each the same addEventListener
+dest.addEventListener("click", function(){
+    dest.style.backgroundColor = "red"
+    //console.log("Me Last")
+})
+hw.addEventListener("click", function(){
+    hw.style.backgroundColor = "white"
+    //console.log("Me Second")
+})
+hw_2.addEventListener("click",function(){
+    hw_2.style.backgroundColor = "blue"
+    event.stopPropagation();
+    //console.log("Me First")
+})
+
+let navLink = document.querySelectorAll(".nav-link").forEach(element => {
+    element.addEventListener("click",function(event){
+        event.preventDefault();
+    })
+})
+
+
+
+
+
+
+
+
+
+
